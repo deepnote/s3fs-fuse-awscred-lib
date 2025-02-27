@@ -33,10 +33,10 @@ static const char S3fsDefaultCredentialsProviderChainTag[]			= "DefaultAWSCreden
 S3fsAWSCredentialsProviderChain::S3fsAWSCredentialsProviderChain(const char* ssoprofile) : Aws::Auth::AWSCredentialsProviderChain()
 {
 	AddProvider(Aws::MakeShared<Aws::Auth::EnvironmentAWSCredentialsProvider>(S3fsDefaultCredentialsProviderChainTag));
-	AddProvider(Aws::MakeShared<Aws::Auth::ProfileConfigFileAWSCredentialsProvider>(S3fsDefaultCredentialsProviderChainTag));
-	AddProvider(Aws::MakeShared<Aws::Auth::ProcessCredentialsProvider>(S3fsDefaultCredentialsProviderChainTag));
-	AddProvider(Aws::MakeShared<Aws::Auth::STSAssumeRoleWebIdentityCredentialsProvider>(S3fsDefaultCredentialsProviderChainTag));
-	AddProvider(Aws::MakeShared<Aws::Auth::STSProfileCredentialsProvider>(S3fsDefaultCredentialsProviderChainTag));
+	// AddProvider(Aws::MakeShared<Aws::Auth::ProfileConfigFileAWSCredentialsProvider>(S3fsDefaultCredentialsProviderChainTag));
+	// AddProvider(Aws::MakeShared<Aws::Auth::ProcessCredentialsProvider>(S3fsDefaultCredentialsProviderChainTag));
+	// AddProvider(Aws::MakeShared<Aws::Auth::STSAssumeRoleWebIdentityCredentialsProvider>(S3fsDefaultCredentialsProviderChainTag));
+	// AddProvider(Aws::MakeShared<Aws::Auth::STSProfileCredentialsProvider>(S3fsDefaultCredentialsProviderChainTag));
 
 	// SSO
 	if(ssoprofile){
