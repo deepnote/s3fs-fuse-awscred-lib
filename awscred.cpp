@@ -26,7 +26,7 @@ static const char S3fsDefaultCredentialsProviderChainTag[]			= "DefaultAWSCreden
 //----------------------------------------------------------
 // Methods : S3fsAWSCredentialsProviderChain
 //----------------------------------------------------------
-S3fsAWSCredentialsProviderChain::S3fsAWSCredentialsProviderChain(const char* ssoprofile) : Aws::Auth::AWSCredentialsProviderChain()
+S3fsAWSCredentialsProviderChain::S3fsAWSCredentialsProviderChain() : Aws::Auth::AWSCredentialsProviderChain()
 {
 	AddProvider(Aws::MakeShared<Aws::Auth::ProfileConfigFileAWSCredentialsProvider>(S3fsDefaultCredentialsProviderChainTag));
 }
