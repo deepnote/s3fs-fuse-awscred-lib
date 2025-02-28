@@ -156,7 +156,7 @@ static const Aws::Utils::DateTime& GetExparationByValidPeriod(const Aws::String&
 const char* VersionS3fsCredential(bool detail)
 {
 	const char short_version_form[]  = "s3fs-fuse-awscred-lib : Version %s (%s)";
-	const char detail_version_form[] = 
+	const char detail_version_form[] =
 		"s3fs-fuse-awscred-lib : Version %s (%s)\n"
 		"s3fs-fuse credential I/F library for AWS\n"
 		"Copyright 2022 Takeshi Nakatani <ggtakec@gmail.com>\n";
@@ -202,24 +202,7 @@ bool InitS3fsCredential(const char* popts, char** pperrstr)
 			std::string	strLowkey	= iter->first;
 			std::string	strValue	= iter->second;
 
-			if(0 == strcasecmp(strLowkey.c_str(), "SSOProfile") || 0 == strcasecmp(strLowkey.c_str(), "SSOProf")){
-				if(strValue.empty()){
-					if(pperrstr){
-						*pperrstr = strdup("Option(SSOProfile) value is empty.");
-					}
-					return false;
-				}
-
-				Aws::String&	ssoprofile = GetSSOProfile();
-				if(!ssoprofile.empty()){
-					if(pperrstr){
-						*pperrstr = strdup("Already specified SSO Profile name.");
-					}
-					return false;
-				}
-				ssoprofile = strValue.c_str();
-
-			}else if(0 == strcasecmp(strLowkey.c_str(), "TokenPeriodSecond") || 0 == strcasecmp(strLowkey.c_str(), "PeriodSec")){
+      if(0 == strcasecmp(strLowkey.c_str(), "TokenPeriodSecond") || 0 == strcasecmp(strLowkey.c_str(), "PeriodSec")){
 				if(strValue.empty()){
 					if(pperrstr){
 						*pperrstr = strdup("Option(SSOProfile) value is empty.");
@@ -419,12 +402,8 @@ bool UpdateS3fsCredential(char** ppaccess_key_id, char** ppserect_access_key, ch
 		*pperrstr = NULL;
 	}
 
-	// Get SSO Profile option
-	const Aws::String&		ssoprofile	= GetSSOProfile();
-	const char*				pSSOProf	= ssoprofile.empty() ? nullptr : ssoprofile.c_str();
-
 	// Create provider chain
-	S3fsAWSCredentialsProviderChain	providerChains(pSSOProf);
+	S3fsAWSCredentialsProviderChain	providerChains;
 	Aws::SDKOptions&		options		= GetSDKOptions();
 	auto					credentials	= providerChains.GetAWSCredentials();
 	bool					result		= true;
